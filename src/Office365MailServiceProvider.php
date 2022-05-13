@@ -20,20 +20,9 @@ class Office365MailServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('mail.manager', function ($app) {
-            $manager = new Office365MailTransport($app);
-            $this->registerCustomTransports($manager);    // Registers sengrid and other custom drivers.
-            return $manager;
-        });
-
-        $this->app->bind('mailer', function ($app) {
-            return $app->make('mail.manager')->mailer();
-        });
-        /*
-        $this->app->afterResolving('mail.manager', function (MailManager $manager) {
+        $this->app->afterResolving(MailManager::class, function (MailManager $manager) {
             $this->extendMailManager($manager);
         });
-        */
     }
 
     public function extendMailManager(MailManager $manager)
