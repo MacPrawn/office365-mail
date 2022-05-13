@@ -20,7 +20,7 @@ class Office365MailServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->afterResolving(MailManager::class, function (MailManager $manager) {
+        $this->app->afterResolving('mail.manager', function (MailManager $manager) {
             $this->extendMailManager($manager);
         });
     }
